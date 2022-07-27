@@ -1,3 +1,11 @@
+const size = {
+  mobile: '480px',
+};
+
+const deviceSize = {
+  mobile: `(max-width : ${size.mobile})`,
+};
+
 const color = {
   grey_01: '#F4F4F4',
   grey_02: '#EFEFEF',
@@ -10,6 +18,8 @@ const color = {
 
 const theme = {
   color,
+  size,
+  deviceSize,
 };
 
 export default theme;
