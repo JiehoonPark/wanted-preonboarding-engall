@@ -8,7 +8,7 @@ interface IScheduleBox {
   onClick?: () => void;
 }
 
-function ScheduleBox({ start, end, onClick }: IScheduleBox) {
+function ScheduleTimeBox({ start, end, onClick }: IScheduleBox) {
   return (
     <ScheduleBoxContainer>
       <TimeWrap>
@@ -20,12 +20,13 @@ function ScheduleBox({ start, end, onClick }: IScheduleBox) {
   );
 }
 
-export default ScheduleBox;
+export default ScheduleTimeBox;
 
 const ScheduleBoxContainer = styled.div`
   display: flex;
-  align-items: start;
+  align-items: center;
   justify-content: space-between;
+  margin: 12px;
   width: 130px;
   height: 50px;
   font-size: 17px;
@@ -39,12 +40,24 @@ const ScheduleBoxContainer = styled.div`
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
   }
   svg {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     color: ${({ theme }) => theme.color.grey_05};
+  }
+
+  @media ${({ theme }) => theme.deviceSize.mobile} {
+    width: 80vw;
+    height: 70px;
+    font-size: 22px;
+    line-height: 1.5;
+    padding: 10px;
   }
 `;
 
 const TimeWrap = styled.div``;
-const StartTime = styled.div``;
-const EndTime = styled.div``;
+const StartTime = styled.div`
+  display: inline-block;
+`;
+const EndTime = styled.div`
+  display: inline-block;
+`;
