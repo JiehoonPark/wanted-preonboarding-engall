@@ -1,5 +1,7 @@
 import React from 'react';
 
-export default function WeeklySchedule() {
+function WeeklySchedule() {
   return <div>WeeklySchedule</div>;
 }
+
+export default WeeklySchedule;
