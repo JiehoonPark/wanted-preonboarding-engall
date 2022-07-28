@@ -1,7 +1,8 @@
-import { checkboxWeek } from '@src/constants/day';
 import React from 'react';
 import styled from 'styled-components';
-import CheckBox from '../common/CheckBox';
+
+import CheckBox from '@components/common/CheckBox';
+import { checkboxWeek } from '@constants/day';
 
 function WeekCheckBox() {
   return (

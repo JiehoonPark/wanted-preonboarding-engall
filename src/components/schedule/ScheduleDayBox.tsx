@@ -1,9 +1,9 @@
-import { week } from '@src/constants/day';
 import React from 'react';
 import styled from 'styled-components';
-import PageBox from '../common/PageBox';
 
-import ScheduleTimeBox from './ScheduleTimeBox';
+import ScheduleTimeBox from '@components/schedule/ScheduleTimeBox';
+import PageBox from '@components/common/PageBox';
+import { week } from '@constants/day';
 
 function ScheduleDayBox() {
   return (

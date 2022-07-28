@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import RadioBox from '../common/RadioBox';
-import Select from '../common/Select';
+
+import RadioBox from '@components/common/RadioBox';
+import Select from '@components/common/Select';
 
 function StartTime() {
   const minutesRef = useRef<HTMLButtonElement>(null);

@@ -1,11 +1,11 @@
 import React from 'react';
-import Button from '@src/components/common/Button';
-import PageBox from '@src/components/common/PageBox';
-import Title from '@src/components/common/Title';
-import StartTime from '@src/components/form/StartTime';
-import WeekCheckBox from '@src/components/form/WeekCheckBox';
-
 import styled from 'styled-components';
+
+import Button from '@components/common/Button';
+import PageBox from '@components/common/PageBox';
+import Title from '@components/common/Title';
+import StartTime from '@components/form/StartTime';
+import WeekCheckBox from '@components/form/WeekCheckBox';
 
 function ScheduleForm() {
   return (

@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 import Title from '@components/common/Title';
 import Button from '@components/common/Button';
-import ScheduleDayBox from '@src/components/schedule/ScheduleDayBox';
-import ScheduleWeeklyBox from '@src/components/schedule/ScheduleWeeklyBox';
+import ScheduleDayBox from '@components/schedule/ScheduleDayBox';
+import ScheduleWeeklyBox from '@components/schedule/ScheduleWeeklyBox';
 
 function WeeklySchedule() {
   return (
