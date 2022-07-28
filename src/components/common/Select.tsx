@@ -4,9 +4,11 @@ import styled from 'styled-components';
 interface ISelectProps {
   options: string[];
   propsRef: RefObject<HTMLButtonElement>;
+  width: string;
+  defaultValue: string;
 }
 
-function Select({ options, propsRef }: ISelectProps) {
+function Select({ options, propsRef, width, defaultValue }: ISelectProps) {
   const handleClick = e => {
     e.currentTarget.childNodes[1].classList.toggle('active');
     if (e.target.nodeName === 'LI') {
@@ -15,12 +17,12 @@ function Select({ options, propsRef }: ISelectProps) {
     }
   };
   return (
-    <SelectContainer onClick={handleClick}>
-      <Label ref={propsRef}>00</Label>
+    <SelectContainer onClick={handleClick} width={width}>
+      <Label ref={propsRef}>{defaultValue}</Label>
       <OptionList>
-        {options.map(minute => (
-          <Option key={minute} value={minute}>
-            {minute}
+        {options.map(option => (
+          <Option key={option} value={option}>
+            {option}
           </Option>
         ))}
       </OptionList>
@@ -30,11 +32,13 @@ function Select({ options, propsRef }: ISelectProps) {
 
 export default Select;
 
-const SelectContainer = styled.div`
+const SelectContainer = styled.div<{ width: string }>`
+  display: inline-block;
   position: relative;
-  width: 75px;
+  width: ${({ width }) => width};
   height: 50px;
   cursor: pointer;
+  margin-bottom: 20px;
   background: url('./images/AiFillCaretDown.svg') calc(100% - 7px) center
     no-repeat;
   background-size: 20px;
@@ -68,7 +72,6 @@ const OptionList = styled.ul`
   overflow: scroll;
   transition: 0.3s ease-in;
   border: 1px solid ${({ theme }) => theme.color.grey_05};
-  border-top: none;
   background: #fff;
   ::-webkit-scrollbar {
     display: none;
@@ -76,6 +79,7 @@ const OptionList = styled.ul`
   :hover {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
   }
+  z-index: 100;
 `;
 
 const Option = styled.li`
