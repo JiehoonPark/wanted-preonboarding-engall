@@ -43,6 +43,6 @@ const Logo = styled.img.attrs({
 const Main = styled.main`
   padding: 50px 40px;
   @media ${({ theme }) => theme.deviceSize.mobile} {
-    padding: 20px;
+    padding: 50px 20px;
   }
 `;

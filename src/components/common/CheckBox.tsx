@@ -36,4 +36,7 @@ const Label = styled.label`
   color: ${({ theme }) => theme.color.grey_04};
   padding: 14px;
   margin: 4px;
+  @media ${({ theme }) => theme.deviceSize.mobile} {
+    width: 100%;
+  }
 `;
