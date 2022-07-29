@@ -6,50 +6,32 @@ const FRIDAY = 'Friday';
 const SATURDAY = 'Saturday';
 const SUNDAY = 'Sunday';
 
-const Mon = 'Mon';
-const Tue = 'Tue';
-const Wed = 'Wed';
-const Thu = 'Thu';
-const Fri = 'Fri';
-const Sat = 'Sat';
-const Sun = 'Sun';
+const MON = 'Mon';
+const TUE = 'Tue';
+const WED = 'Wed';
+const THU = 'Thu';
+const FRI = 'Fri';
+const SAT = 'Sat';
+const SUN = 'Sun';
 
-export const week = [
-  MONDAY,
-  TUESDAY,
-  WEDNESDAY,
-  THURSDAY,
-  FRIDAY,
-  SATURDAY,
-  SUNDAY,
-];
+export const week = [MON, TUE, WED, THU, FRI, SAT, SUN];
 
 export const dayOfWeekArray = [
-  [MONDAY, Mon],
-  [TUESDAY, Tue],
-  [WEDNESDAY, Wed],
-  [THURSDAY, Thu],
-  [FRIDAY, Fri],
-  [SATURDAY, Sat],
-  [SUNDAY, Sun],
+  [MONDAY, MON],
+  [TUESDAY, TUE],
+  [WEDNESDAY, WED],
+  [THURSDAY, THU],
+  [FRIDAY, FRI],
+  [SATURDAY, SAT],
+  [SUNDAY, SUN],
 ];
 
-export const dayOfWeekToAbbreviation = {
-  [Mon]: MONDAY,
-  [Tue]: TUESDAY,
-  [Wed]: WEDNESDAY,
-  [Thu]: THURSDAY,
-  [Fri]: FRIDAY,
-  [Sat]: SATURDAY,
-  [Sun]: SUNDAY,
-};
-
 export const dayOfWeek = {
-  [MONDAY]: Mon,
-  [TUESDAY]: Tue,
-  [WEDNESDAY]: Wed,
-  [THURSDAY]: Thu,
-  [FRIDAY]: Fri,
-  [SATURDAY]: Sat,
-  [SUNDAY]: Sun,
+  [MON]: MONDAY,
+  [TUE]: TUESDAY,
+  [WED]: WEDNESDAY,
+  [THU]: THURSDAY,
+  [FRI]: FRIDAY,
+  [SAT]: SATURDAY,
+  [SUN]: SUNDAY,
 };
