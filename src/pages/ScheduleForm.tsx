@@ -16,7 +16,7 @@ function ScheduleForm() {
   const selectRef = useRef<{ [key: string]: number }>({});
   const radioBoxRef = useRef<string>('');
   const checkBoxRef = useRef<string[]>([]);
-  const { mutate } = usePostMutation();
+  const { mutateAsync } = usePostMutation();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
@@ -29,10 +29,11 @@ function ScheduleForm() {
     try {
       checkEmpty(select, radio, checkbox);
       await checkDuplication(select, radio, checkbox);
-      checkbox.map(day => {
-        const { start } = getTime(select, radio);
-        mutate({ day, time: start });
+      const { start } = getTime(select, radio);
+      const data = checkbox.map(day => {
+        return { day, time: start };
       });
+      mutateAsync(data);
       navigate('/');
     } catch (e) {
       const error = e as Error;

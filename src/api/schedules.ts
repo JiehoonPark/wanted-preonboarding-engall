@@ -15,8 +15,11 @@ export const getFilterSchedules = async (start: string, end: string) => {
   return response.data;
 };
 
-export const postSchedules = async (data: ISchedule) => {
-  await axios.post(`${BASE_URL}/schedules`, data);
+export const postSchedules = async (data: ISchedule[]) => {
+  const request = data.map(schedule =>
+    axios.post(`${BASE_URL}/schedules`, schedule),
+  );
+  await axios.all(request);
 };
 
 export const deleteScheduleById = async (id: number) => {
