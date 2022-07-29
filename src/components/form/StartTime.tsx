@@ -1,43 +1,41 @@
-import React, { useRef } from 'react';
+import React, { ChangeEvent } from 'react';
 import styled from 'styled-components';
 
 import RadioBox from '@components/common/RadioBox';
 import Select from '@components/common/Select';
+import { hours, minutes } from '@constants/time';
 
-function StartTime() {
-  const minutesRef = useRef<HTMLButtonElement>(null);
-  const hoursRef = useRef<HTMLButtonElement>(null);
-  const minutes = Array(12)
-    .fill(5)
-    .map((minute, index) =>
-      index === 0 || index === 1 ? `0${minute * index}` : `${minute * index}`,
-    );
+interface IstartTimeProps {
+  selectPropsRef: React.MutableRefObject<{ [key: string]: string }>;
+  radioPropsRef: React.MutableRefObject<string>;
+}
 
-  const hours = Array(13)
-    .fill(1)
-    .map((hour, index) =>
-      hour * index < 10 ? `0${hour * index}` : `${hour * index}`,
-    );
+function StartTime({ selectPropsRef, radioPropsRef }: IstartTimeProps) {
+  const handleRadioBoxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    radioPropsRef.current = e.target.id;
+  };
 
   return (
     <StartTimeContainer>
       <Title>Start time</Title>
       <SelectContainer>
         <Select
+          id="hours"
           options={hours}
-          propsRef={hoursRef}
+          propsRef={selectPropsRef}
           width="75px"
           defaultValue="00"
         ></Select>
         <Colon>:</Colon>
         <Select
+          id="minutes"
           options={minutes}
-          propsRef={minutesRef}
+          propsRef={selectPropsRef}
           width="75px"
           defaultValue="00"
         ></Select>
       </SelectContainer>
-      <RadioContainer>
+      <RadioContainer onChange={handleRadioBoxChange}>
         <RadioBox id="am" name="time">
           AM
         </RadioBox>

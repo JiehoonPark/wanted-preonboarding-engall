@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 import Button from '@components/common/Button';
@@ -6,19 +6,51 @@ import PageBox from '@components/common/PageBox';
 import Title from '@components/common/Title';
 import StartTime from '@components/form/StartTime';
 import WeekCheckBox from '@components/form/WeekCheckBox';
+import checkEmpty from '@utils/checkEmpty';
+import checkDuplication from '@utils/checkDuplication';
+import { usePostMutation } from '@src/hooks/useQuries';
+import { getTime } from '@src/utils/getTime';
+import { useNavigate } from 'react-router';
 
 function ScheduleForm() {
+  const selectRef = useRef<{ [key: string]: string }>({});
+  const radioBoxRef = useRef<string>('');
+  const checkBoxRef = useRef<string[]>([]);
+  const { mutate } = usePostMutation();
+  const navigate = useNavigate();
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const [select, radio, checkbox] = [
+      selectRef.current,
+      radioBoxRef.current,
+      checkBoxRef.current,
+    ];
+    try {
+      checkEmpty(select, radio, checkbox);
+      await checkDuplication(select, radio, checkbox);
+      checkbox.map(day => {
+        const { startTime } = getTime(select, radio);
+        mutate({ day, time: startTime });
+      });
+      navigate('/');
+    } catch (e) {
+      const error = e as Error;
+      alert(error.message);
+    }
+  };
+
   return (
     <ScheduleFormContainer>
       <TitleWrap>
         <Title>Add class schedule</Title>
       </TitleWrap>
       <PageBox>
-        <StartTime />
-        <WeekCheckBox />
+        <StartTime selectPropsRef={selectRef} radioPropsRef={radioBoxRef} />
+        <WeekCheckBox propsRef={checkBoxRef} />
       </PageBox>
       <ButtonWrap>
-        <Button>Save</Button>
+        <Button onClick={handleSubmit}>Save</Button>
       </ButtonWrap>
     </ScheduleFormContainer>
   );
@@ -26,7 +58,7 @@ function ScheduleForm() {
 
 export default ScheduleForm;
 
-const ScheduleFormContainer = styled.div``;
+const ScheduleFormContainer = styled.form``;
 
 const TitleWrap = styled.div`
   margin-bottom: 50px;
@@ -35,5 +67,4 @@ const TitleWrap = styled.div`
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: end;
-  margin-top: 35px;
 `;
