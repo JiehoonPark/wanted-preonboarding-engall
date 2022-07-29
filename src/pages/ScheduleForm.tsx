@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router';
 
 import Button from '@components/common/Button';
 import PageBox from '@components/common/PageBox';
@@ -8,18 +9,17 @@ import StartTime from '@components/form/StartTime';
 import WeekCheckBox from '@components/form/WeekCheckBox';
 import checkEmpty from '@utils/checkEmpty';
 import checkDuplication from '@utils/checkDuplication';
-import { usePostMutation } from '@src/hooks/useQuries';
-import { getTime } from '@src/utils/getTime';
-import { useNavigate } from 'react-router';
+import { getTime } from '@utils/getTime';
+import { usePostMutation } from '@hooks/useQuries';
 
 function ScheduleForm() {
-  const selectRef = useRef<{ [key: string]: string }>({});
+  const selectRef = useRef<{ [key: string]: number }>({});
   const radioBoxRef = useRef<string>('');
   const checkBoxRef = useRef<string[]>([]);
   const { mutate } = usePostMutation();
   const navigate = useNavigate();
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const [select, radio, checkbox] = [
       selectRef.current,
@@ -30,8 +30,8 @@ function ScheduleForm() {
       checkEmpty(select, radio, checkbox);
       await checkDuplication(select, radio, checkbox);
       checkbox.map(day => {
-        const { startTime } = getTime(select, radio);
-        mutate({ day, time: startTime });
+        const { start } = getTime(select, radio);
+        mutate({ day, time: start });
       });
       navigate('/');
     } catch (e) {

@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import Title from '@components/common/Title';
 import Button from '@components/common/Button';
 import SsheduleList from '@components/schedule/SsheduleList';
-import ScrollTopButton from '@src/components/common/ScrollTopButton';
+import ScrollTopButton from '@components/common/ScrollTopButton';
 
 function WeeklySchedule() {
   return (

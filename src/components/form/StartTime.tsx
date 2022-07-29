@@ -3,10 +3,10 @@ import styled from 'styled-components';
 
 import RadioBox from '@components/common/RadioBox';
 import Select from '@components/common/Select';
-import { hours, minutes } from '@constants/time';
+import { hour, minute } from '@constants/time';
 
 interface IstartTimeProps {
-  selectPropsRef: React.MutableRefObject<{ [key: string]: string }>;
+  selectPropsRef: React.MutableRefObject<{ [key: string]: number }>;
   radioPropsRef: React.MutableRefObject<string>;
 }
 
@@ -20,16 +20,16 @@ function StartTime({ selectPropsRef, radioPropsRef }: IstartTimeProps) {
       <Title>Start time</Title>
       <SelectContainer>
         <Select
-          id="hours"
-          options={hours}
+          id="hour"
+          options={hour}
           propsRef={selectPropsRef}
           width="75px"
           defaultValue="00"
         ></Select>
         <Colon>:</Colon>
         <Select
-          id="minutes"
-          options={minutes}
+          id="minute"
+          options={minute}
           propsRef={selectPropsRef}
           width="75px"
           defaultValue="00"

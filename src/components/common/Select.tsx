@@ -1,17 +1,15 @@
-import React from 'react';
-import { useRef } from 'react';
-import { useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 interface ISelectProps {
   id: string;
-  options: string[];
-  propsRef: React.MutableRefObject<{ [key: string]: string }>;
   width: string;
   defaultValue: string;
+  options: (string | number)[][];
+  propsRef: React.MutableRefObject<{ [key: string]: number }>;
 }
 
-function Select({ id, options, propsRef, width, defaultValue }: ISelectProps) {
+function Select({ id, width, defaultValue, options, propsRef }: ISelectProps) {
   const ulRef = useRef<HTMLUListElement>(null);
 
   const handleClick = e => {
@@ -21,12 +19,12 @@ function Select({ id, options, propsRef, width, defaultValue }: ISelectProps) {
     if (e.target.nodeName === 'LI') {
       e.currentTarget.childNodes[0].innerHTML = e.target.innerHTML;
       e.currentTarget.childNodes[1].scrollTop = 0;
-      propsRef.current[id] = e.target.innerHTML;
+      propsRef.current[id] = e.target.value;
     }
   };
 
   useEffect(() => {
-    propsRef.current[id] = defaultValue;
+    propsRef.current[id] = 0;
 
     document.addEventListener('click', e => {
       if (ulRef.current) ulRef.current.classList.remove('active');
@@ -42,8 +40,8 @@ function Select({ id, options, propsRef, width, defaultValue }: ISelectProps) {
       <Label>{defaultValue}</Label>
       <OptionList ref={ulRef}>
         {options.map(option => (
-          <Option key={option} value={option}>
-            {option}
+          <Option key={option[0]} value={option[0]}>
+            {option[1]}
           </Option>
         ))}
       </OptionList>

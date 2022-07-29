@@ -11,17 +11,18 @@ interface IScheduleBox {
 }
 
 function ScheduleTimeBox({ time, id }: IScheduleBox) {
-  const { startTime, endTime, AMPM } = reverseGetTime(time);
+  const { start, end } = reverseGetTime(time);
   const { mutate } = useDeleteMutation();
 
   const handleDeleteSchedule = () => {
     mutate(id);
   };
+
   return (
     <ScheduleBoxContainer>
       <TimeWrap>
-        <StartTime>{`${startTime} ${AMPM}  - `}</StartTime>
-        <EndTime>{`${endTime} ${AMPM}`}</EndTime>
+        <StartTime>{`${start}  - `}</StartTime>
+        <EndTime>{`${end}`}</EndTime>
       </TimeWrap>
       <IoMdCloseCircle onClick={handleDeleteSchedule} />
     </ScheduleBoxContainer>
