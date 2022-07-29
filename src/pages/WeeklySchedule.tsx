@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 import Title from '@components/common/Title';
 import Button from '@components/common/Button';
-import SsheduleList from '@components/schedule/SsheduleList';
 import ScrollTopButton from '@components/common/ScrollTopButton';
+import Modal from '@components/common/Modal';
+import ScheduleWeeklyBox from '@components/schedule/ScheduleWeeklyBox';
+import ScheduleDayBox from '@components/schedule/ScheduleDayBox';
+import scrollTop from '@utils/scrollTop';
+import sortedDataByDayOfWeek from '@utils/sortedDataByDayOfWeek';
+import { useSchedulesQuery } from '@hooks/useQuries';
 
 function WeeklySchedule() {
+  const modalRef = useRef<HTMLDivElement>(null);
+  const { data } = useSchedulesQuery();
+  const sortedData = data && sortedDataByDayOfWeek(data);
+
+  useEffect(() => {
+    scrollTop();
+  }, []);
+
   return (
     <WeeklyScheduleContainer>
       <Wrap>
@@ -16,10 +29,16 @@ function WeeklySchedule() {
           <Button>Add Class Schedule</Button>
         </Link>
       </Wrap>
-      <SsheduleList />
+      {data && (
+        <>
+          <ScheduleWeeklyBox data={sortedData} modalRef={modalRef} />
+          <ScheduleDayBox data={sortedData} modalRef={modalRef} />
+        </>
+      )}
       <ButtonWrap>
         <ScrollTopButton position={800} />
       </ButtonWrap>
+      <Modal modalRef={modalRef} />
     </WeeklyScheduleContainer>
   );
 }
@@ -39,6 +58,7 @@ const Wrap = styled.div`
   }
 `;
 const Link = styled(NavLink)`
+  text-decoration: none;
   @media ${({ theme }) => theme.deviceSize.mobile} {
     display: flex;
     justify-content: end;
