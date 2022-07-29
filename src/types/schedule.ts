@@ -3,3 +3,7 @@ export interface ISchedule {
   day: string;
   time: string;
 }
+
+export interface ISortedSchedule {
+  [key: string]: ISchedule[];
+}
