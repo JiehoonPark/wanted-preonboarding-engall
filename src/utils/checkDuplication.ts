@@ -1,22 +1,22 @@
-import { dayOfWeekToAbbreviation } from '@constants/day';
+import { dayOfWeek } from '@constants/day';
 import { getFilterSchedules } from '@api/schedules';
 import { getTime } from '@utils/getTime';
 
 const checkDuplication = async (
   time: { [key: string]: number },
   AMPM: string,
-  dayOfWeek: string[],
+  checkWeek: string[],
 ) => {
   const { start, end } = getTime(time, AMPM);
   const duplicatedClass: string[] = [];
   const filterSchedules = await getFilterSchedules(start, end);
 
   filterSchedules.map(schedule => {
-    if (dayOfWeek.includes(schedule.day)) duplicatedClass.push(schedule.day);
+    if (checkWeek.includes(schedule.day)) duplicatedClass.push(schedule.day);
   });
 
   const duplicatedDay = [
-    ...new Set(duplicatedClass.map(day => dayOfWeekToAbbreviation[day])),
+    ...new Set(duplicatedClass.map(day => dayOfWeek[day])),
   ].join(',');
 
   if (duplicatedClass.length > 0)
