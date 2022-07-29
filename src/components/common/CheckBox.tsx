@@ -1,16 +1,15 @@
-import React, { ChangeEvent, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
 interface ICheckBoxProps {
   children: ReactNode;
   id: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-function CheckBox({ id, onChange, children }: ICheckBoxProps) {
+function CheckBox({ id, children }: ICheckBoxProps) {
   return (
     <>
-      <Input type="checkbox" id={id} onChange={onChange} />
+      <Input type="checkbox" id={id} />
       <Label htmlFor={id}>{children}</Label>
     </>
   );

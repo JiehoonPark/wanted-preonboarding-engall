@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import CheckBox from '@components/common/CheckBox';
@@ -9,27 +9,18 @@ interface IWeekCheckBoxProps {
 }
 
 function WeekCheckBox({ propsRef }: IWeekCheckBoxProps) {
-  const [checked, setChecked] = useState<string[]>([]);
-
-  const handleCheckBox = useCallback(
-    (e: { target: { id: string; checked: boolean } }) => {
-      const { id, checked } = e.target;
-      if (checked) setChecked(checked => [...checked, id]);
-      else setChecked(checked => checked.filter(item => item !== id));
-    },
-    [checked],
-  );
-
-  useEffect(() => {
-    propsRef.current = checked;
-  }, [checked]);
+  const handleCheckBox = e => {
+    const { id, checked: check } = e.target;
+    if (check) propsRef.current = [...propsRef.current, id];
+    else propsRef.current = propsRef.current.filter(item => item !== id);
+  };
 
   return (
     <WeekBoxContainer>
       <Title>Repeat on</Title>
-      <CheckBoxWrap>
+      <CheckBoxWrap onChange={handleCheckBox}>
         {dayOfWeekArray.map(day => (
-          <CheckBox id={day[1]} key={day[1]} onChange={handleCheckBox}>
+          <CheckBox id={day[1]} key={day[1]}>
             {day[0]}
           </CheckBox>
         ))}
