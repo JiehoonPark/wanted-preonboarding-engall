@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 import ScheduleTimeBox from '@components/schedule/ScheduleTimeBox';
 import { dayOfWeek, week } from '@constants/day';
-import { ISchedule } from '@src/types/schedule';
+import { ISortedSchedule } from '@src/types/schedule';
 import PageBox from '../common/PageBox';
 
 interface IScheduleWeeklyBoxProps {
-  data: { [key: string]: ISchedule[] };
+  data: ISortedSchedule;
 }
 
 function ScheduleWeeklyBox({ data }: IScheduleWeeklyBoxProps) {

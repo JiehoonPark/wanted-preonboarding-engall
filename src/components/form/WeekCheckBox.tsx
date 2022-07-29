@@ -12,7 +12,7 @@ function WeekCheckBox({ propsRef }: IWeekCheckBoxProps) {
   const [checked, setChecked] = useState<string[]>([]);
 
   const handleCheckBox = useCallback(
-    e => {
+    (e: { target: { id: string; checked: boolean } }) => {
       const { id, checked } = e.target;
       if (checked) setChecked(checked => [...checked, id]);
       else setChecked(checked => checked.filter(item => item !== id));
