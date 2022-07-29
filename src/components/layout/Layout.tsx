@@ -1,12 +1,15 @@
 import React from 'react';
 import { Outlet } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 function Layout() {
   return (
     <LayoutContainer>
       <Header>
-        <Logo />
+        <NavLink to="/">
+          <Logo />
+        </NavLink>
       </Header>
       <Main>
         <Outlet />
