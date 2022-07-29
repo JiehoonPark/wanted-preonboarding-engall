@@ -1,16 +1,14 @@
-import getEndTime from '@utils/getEndTime';
-import setTimeFormat from '@utils/setTimeFormat';
+import { BASE_ON_DATE } from '@src/constants/time';
+import { format } from 'date-fns';
 
-export const getTime = (time: { [key: string]: string }, AMPM: string) => {
-  const start = [+time.hours, +time.minutes];
+export const getTime = (time: { [key: string]: number }, AMPM: string) => {
+  const [year, month, day] = BASE_ON_DATE;
+  const { hour, minute } = time;
 
-  if (AMPM === 'pm') start[0] += 12;
+  if (AMPM === 'pm') time.hour += 12;
 
-  const end = getEndTime(start);
-  if (end[0] >= 24) end[0] = 0;
+  const start = format(new Date(year, month, day, hour, minute), 'HH:mm');
+  const end = format(new Date(year, month, day, hour, minute + 40), 'HH:mm');
 
-  const startTime = setTimeFormat(start);
-  const endTime = setTimeFormat(end);
-
-  return { startTime, endTime };
+  return { start, end };
 };

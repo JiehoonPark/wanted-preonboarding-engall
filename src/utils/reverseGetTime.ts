@@ -1,18 +1,26 @@
-import getEndTime from '@utils/getEndTime';
-import setTimeFormat from '@utils/setTimeFormat';
+import { BASE_ON_DATE } from './../constants/time';
 
 const reverseGetTime = (time: string) => {
-  const timeArray = time.split(':').map(Number);
-  const AMPM = timeArray[0] > 12 ? 'PM' : 'AM';
+  const [year, month, day] = BASE_ON_DATE;
+  const [hour, minute] = time.split(':').map(Number);
 
-  const start =
-    timeArray[0] > 12 ? [timeArray[0] - 12, timeArray[1]] : timeArray;
-  const end = getEndTime(start);
-
-  const startTime = setTimeFormat(start);
-  const endTime = setTimeFormat(end);
-
-  return { startTime, endTime, AMPM };
+  const start = new Date(year, month, day, hour, minute).toLocaleString(
+    'en-us',
+    {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    },
+  );
+  const end = new Date(year, month, day, hour, minute + 40).toLocaleString(
+    'en-us',
+    {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    },
+  );
+  return { start, end };
 };
 
 export default reverseGetTime;

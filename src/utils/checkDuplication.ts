@@ -3,13 +3,13 @@ import { getFilterSchedules } from '@api/schedules';
 import { getTime } from '@utils/getTime';
 
 const checkDuplication = async (
-  time: { [key: string]: string },
+  time: { [key: string]: number },
   AMPM: string,
   dayOfWeek: string[],
 ) => {
-  const { startTime, endTime } = getTime(time, AMPM);
+  const { start, end } = getTime(time, AMPM);
   const duplicatedClass: string[] = [];
-  const filterSchedules = await getFilterSchedules(startTime, endTime);
+  const filterSchedules = await getFilterSchedules(start, end);
 
   filterSchedules.map(schedule => {
     if (dayOfWeek.includes(schedule.day)) duplicatedClass.push(schedule.day);
