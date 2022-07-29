@@ -1,11 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import PageBox from '@components/common/PageBox';
-import { week } from '@constants/day';
 import ScheduleTimeBox from '@components/schedule/ScheduleTimeBox';
+import { dayOfWeek, week } from '@constants/day';
+import { ISchedule } from '@src/types/schedule';
+import PageBox from '../common/PageBox';
 
-function ScheduleWeeklyBox() {
+interface IScheduleWeeklyBoxProps {
+  data: { [key: string]: ISchedule[] };
+}
+
+function ScheduleWeeklyBox({ data }: IScheduleWeeklyBoxProps) {
   return (
     <ScheduleWeeklyBoxContainer className="weekly">
       <PageBox>
@@ -14,8 +19,13 @@ function ScheduleWeeklyBox() {
             <DayBox key={day}>
               <DayTitle>{day}</DayTitle>
               <List>
-                <ScheduleTimeBox start="10:00 AM" end="10:40 AM" />
-                <ScheduleTimeBox start="10:00 AM" end="10:40 AM" />
+                {data[dayOfWeek[day]].map(schedule => (
+                  <ScheduleTimeBox
+                    key={schedule.id}
+                    time={schedule.time}
+                    id={schedule.id}
+                  />
+                ))}
               </List>
             </DayBox>
           ))}
@@ -31,8 +41,10 @@ const ScheduleWeeklyBoxContainer = styled.div``;
 
 const Wrap = styled.div`
   position: relative;
+  display: flex;
+  align-items: start;
+  flex-wrap: wrap;
   @media (min-width: 1500px) {
-    display: flex;
     justify-content: space-between;
     ::after {
       content: '';

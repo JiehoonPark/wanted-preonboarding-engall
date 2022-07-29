@@ -2,20 +2,28 @@ import React from 'react';
 import styled from 'styled-components';
 import { IoMdCloseCircle } from 'react-icons/io';
 
+import reverseGetTime from '@utils/reverseGetTime';
+import { useDeleteMutation } from '@hooks/useQuries';
+
 interface IScheduleBox {
-  start: string;
-  end: string;
-  onClick?: () => void;
+  time: string;
+  id: number;
 }
 
-function ScheduleTimeBox({ start, end, onClick }: IScheduleBox) {
+function ScheduleTimeBox({ time, id }: IScheduleBox) {
+  const { startTime, endTime, AMPM } = reverseGetTime(time);
+  const { mutate } = useDeleteMutation();
+
+  const handleDeleteSchedule = () => {
+    mutate(id);
+  };
   return (
     <ScheduleBoxContainer>
       <TimeWrap>
-        <StartTime>{`${start} - `}</StartTime>
-        <EndTime>{end}</EndTime>
+        <StartTime>{`${startTime} ${AMPM}  - `}</StartTime>
+        <EndTime>{`${endTime} ${AMPM}`}</EndTime>
       </TimeWrap>
-      <IoMdCloseCircle onClick={onClick} />
+      <IoMdCloseCircle onClick={handleDeleteSchedule} />
     </ScheduleBoxContainer>
   );
 }

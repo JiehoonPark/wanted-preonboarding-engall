@@ -1,24 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 import Title from '@components/common/Title';
 import Button from '@components/common/Button';
-import ScheduleDayBox from '@components/schedule/ScheduleDayBox';
-import ScheduleWeeklyBox from '@components/schedule/ScheduleWeeklyBox';
+import SsheduleList from '@components/schedule/SsheduleList';
+import ScrollTopButton from '@src/components/common/ScrollTopButton';
 
 function WeeklySchedule() {
   return (
     <WeeklyScheduleContainer>
       <Wrap>
         <Title>Class schedule</Title>
-        <ButtonWrap>
+        <Link to="/form">
           <Button>Add Class Schedule</Button>
-        </ButtonWrap>
+        </Link>
       </Wrap>
-      <Box>
-        <ScheduleWeeklyBox />
-        <ScheduleDayBox />
-      </Box>
+      <SsheduleList />
+      <ButtonWrap>
+        <ScrollTopButton position={800} />
+      </ButtonWrap>
     </WeeklyScheduleContainer>
   );
 }
@@ -37,7 +38,7 @@ const Wrap = styled.div`
     margin-bottom: 30px;
   }
 `;
-const ButtonWrap = styled.div`
+const Link = styled(NavLink)`
   @media ${({ theme }) => theme.deviceSize.mobile} {
     display: flex;
     justify-content: end;
@@ -45,19 +46,17 @@ const ButtonWrap = styled.div`
   }
 `;
 
-const Box = styled.div`
-  .weekly {
-    display: block;
-  }
-  .day {
-    display: none;
+const ButtonWrap = styled.div`
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  svg {
+    width: 50px;
+    height: 50px;
+    color: ${({ theme }) => theme.color.grey_06};
   }
   @media ${({ theme }) => theme.deviceSize.mobile} {
-    .weekly {
-      display: none;
-    }
-    .day {
-      display: block;
-    }
+    display: block;
   }
 `;

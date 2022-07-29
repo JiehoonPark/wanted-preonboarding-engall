@@ -2,21 +2,33 @@ import React from 'react';
 import styled from 'styled-components';
 
 import ScheduleTimeBox from '@components/schedule/ScheduleTimeBox';
-import PageBox from '@components/common/PageBox';
-import { week } from '@constants/day';
+import { dayOfWeek, week } from '@constants/day';
+import { ISchedule } from '@src/types/schedule';
+import PageBox from '../common/PageBox';
 
-function ScheduleDayBox() {
+interface IScheduleDayBoxProps {
+  data: { [key: string]: ISchedule[] };
+}
+
+function ScheduleDayBox({ data }: IScheduleDayBoxProps) {
   return (
     <ScheduleDayBoxContainer className="day">
-      <PageBox>
-        <DayBox>
-          <DayTitle>{week[0]}</DayTitle>
-          <List>
-            <ScheduleTimeBox start="10:00 AM" end="10:40 AM" />
-            <ScheduleTimeBox start="10:00 AM" end="10:40 AM" />
-          </List>
-        </DayBox>
-      </PageBox>
+      {week.map(day => (
+        <PageBox key={day}>
+          <DayBox>
+            <DayTitle>{day}</DayTitle>
+            <List>
+              {data[dayOfWeek[day]].map(schedule => (
+                <ScheduleTimeBox
+                  key={schedule.id}
+                  time={schedule.time}
+                  id={schedule.id}
+                />
+              ))}
+            </List>
+          </DayBox>
+        </PageBox>
+      ))}
     </ScheduleDayBoxContainer>
   );
 }
