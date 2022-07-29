@@ -25,7 +25,7 @@ function StartTime({ selectPropsRef, radioPropsRef }: IstartTimeProps) {
           propsRef={selectPropsRef}
           width="75px"
           defaultValue="00"
-        ></Select>
+        />
         <Colon>:</Colon>
         <Select
           id="minute"
@@ -33,7 +33,7 @@ function StartTime({ selectPropsRef, radioPropsRef }: IstartTimeProps) {
           propsRef={selectPropsRef}
           width="75px"
           defaultValue="00"
-        ></Select>
+        />
       </SelectContainer>
       <RadioContainer onChange={handleRadioBoxChange}>
         <RadioBox id="am" name="time">
