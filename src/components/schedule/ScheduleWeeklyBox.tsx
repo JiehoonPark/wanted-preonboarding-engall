@@ -5,25 +5,28 @@ import ScheduleTimeBox from '@components/schedule/ScheduleTimeBox';
 import { dayOfWeek, week } from '@constants/day';
 import { ISortedSchedule } from '@src/types/schedule';
 import PageBox from '../common/PageBox';
+import Modal from '../common/Modal';
 
 interface IScheduleWeeklyBoxProps {
   data: ISortedSchedule;
+  modalRef: React.RefObject<HTMLDivElement>;
 }
 
-function ScheduleWeeklyBox({ data }: IScheduleWeeklyBoxProps) {
+function ScheduleWeeklyBox({ data, modalRef }: IScheduleWeeklyBoxProps) {
   return (
     <ScheduleWeeklyBoxContainer className="weekly">
       <PageBox>
         <Wrap>
           {week.map(day => (
             <DayBox key={day}>
-              <DayTitle>{day}</DayTitle>
+              <DayTitle>{dayOfWeek[day]}</DayTitle>
               <List>
-                {data[dayOfWeek[day]].map(schedule => (
+                {data[day].map(schedule => (
                   <ScheduleTimeBox
                     key={schedule.id}
                     time={schedule.time}
                     id={schedule.id}
+                    modalRef={modalRef}
                   />
                 ))}
               </List>

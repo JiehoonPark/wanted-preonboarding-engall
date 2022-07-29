@@ -8,21 +8,23 @@ import PageBox from '@components/common/PageBox';
 
 interface IScheduleDayBoxProps {
   data: ISortedSchedule;
+  modalRef: React.RefObject<HTMLDivElement>;
 }
 
-function ScheduleDayBox({ data }: IScheduleDayBoxProps) {
+function ScheduleDayBox({ data, modalRef }: IScheduleDayBoxProps) {
   return (
     <ScheduleDayBoxContainer className="day">
       {week.map(day => (
         <PageBox key={day}>
           <DayBox>
-            <DayTitle>{day}</DayTitle>
+            <DayTitle>{dayOfWeek[day]}</DayTitle>
             <List>
-              {data[dayOfWeek[day]].map(schedule => (
+              {data[day].map(schedule => (
                 <ScheduleTimeBox
                   key={schedule.id}
                   time={schedule.time}
                   id={schedule.id}
+                  modalRef={modalRef}
                 />
               ))}
             </List>

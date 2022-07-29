@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 import { useSchedulesQuery } from '@hooks/useQuries';
 import ScheduleDayBox from '@components/schedule/ScheduleDayBox';
 import ScheduleWeeklyBox from '@components/schedule/ScheduleWeeklyBox';
 import sortedDataByDayOfWeek from '@utils/sortedDataByDayOfWeek';
+import Modal from '../common/Modal';
 
 function SsheduleList() {
+  const modalRef = useRef<HTMLDivElement>(null);
   const { data, isLoading } = useSchedulesQuery();
   const sortedData = data && sortedDataByDayOfWeek(data);
 
@@ -16,8 +18,9 @@ function SsheduleList() {
         <div>Loading...</div>
       ) : (
         <>
-          <ScheduleWeeklyBox data={sortedData} />
-          <ScheduleDayBox data={sortedData} />
+          <Modal modalRef={modalRef} />
+          <ScheduleWeeklyBox data={sortedData} modalRef={modalRef} />
+          <ScheduleDayBox data={sortedData} modalRef={modalRef} />
         </>
       )}
     </SsheduleListContainer>
@@ -32,6 +35,9 @@ const SsheduleListContainer = styled.div`
   }
   .day {
     display: none;
+  }
+  .active {
+    display: block;
   }
   @media ${({ theme }) => theme.deviceSize.mobile} {
     .weekly {

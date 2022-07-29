@@ -3,19 +3,21 @@ import styled from 'styled-components';
 import { IoMdCloseCircle } from 'react-icons/io';
 
 import reverseGetTime from '@utils/reverseGetTime';
-import { useDeleteMutation } from '@hooks/useQuries';
 
 interface IScheduleBox {
   time: string;
   id: number;
+  modalRef: React.RefObject<HTMLDivElement>;
 }
 
-function ScheduleTimeBox({ time, id }: IScheduleBox) {
+function ScheduleTimeBox({ time, id, modalRef }: IScheduleBox) {
   const { start, end } = reverseGetTime(time);
-  const { mutate } = useDeleteMutation();
 
   const handleDeleteSchedule = () => {
-    mutate(id);
+    if (modalRef.current) {
+      modalRef.current['id'] = `${id}`;
+      modalRef.current.classList.add('active');
+    }
   };
 
   return (
