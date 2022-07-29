@@ -24,7 +24,7 @@ export const week = [
   SUNDAY,
 ];
 
-export const checkboxWeek = [
+export const dayOfWeekArray = [
   [MONDAY, Mon],
   [TUESDAY, Tue],
   [WEDNESDAY, Wed],
@@ -33,3 +33,23 @@ export const checkboxWeek = [
   [SATURDAY, Sat],
   [SUNDAY, Sun],
 ];
+
+export const dayOfWeekToAbbreviation = {
+  [Mon]: MONDAY,
+  [Tue]: TUESDAY,
+  [Wed]: WEDNESDAY,
+  [Thu]: THURSDAY,
+  [Fri]: FRIDAY,
+  [Sat]: SATURDAY,
+  [Sun]: SUNDAY,
+};
+
+export const dayOfWeek = {
+  [MONDAY]: Mon,
+  [TUESDAY]: Tue,
+  [WEDNESDAY]: Wed,
+  [THURSDAY]: Thu,
+  [FRIDAY]: Fri,
+  [SATURDAY]: Sat,
+  [SUNDAY]: Sun,
+};
