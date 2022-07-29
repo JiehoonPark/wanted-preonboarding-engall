@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import styled, { css } from 'styled-components';
 
 interface ISelectProps {
   id: string;
@@ -10,12 +10,12 @@ interface ISelectProps {
 }
 
 function Select({ id, width, defaultValue, options, propsRef }: ISelectProps) {
-  const ulRef = useRef<HTMLUListElement>(null);
+  const [open, setOpen] = useState<boolean>(false);
 
   const handleClick = e => {
     e.stopPropagation();
     e.preventDefault();
-    e.currentTarget.childNodes[1].classList.toggle('active');
+    setOpen(!open);
     if (e.target.nodeName === 'LI') {
       e.currentTarget.childNodes[0].innerHTML = e.target.innerHTML;
       e.currentTarget.childNodes[1].scrollTop = 0;
@@ -23,22 +23,20 @@ function Select({ id, width, defaultValue, options, propsRef }: ISelectProps) {
     }
   };
 
+  const handlefocusOut = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
     propsRef.current[id] = 0;
-
-    document.addEventListener('click', e => {
-      if (ulRef.current) ulRef.current.classList.remove('active');
-    });
-
-    return document.removeEventListener('click', e => {
-      if (ulRef.current) ulRef.current.classList.remove('active');
-    });
+    document.addEventListener('click', handlefocusOut);
+    return document.removeEventListener('click', handlefocusOut);
   }, []);
 
   return (
-    <SelectContainer onClick={handleClick} width={width}>
-      <Label>{defaultValue}</Label>
-      <OptionList ref={ulRef}>
+    <SelectContainer onClick={handleClick} width={width} open={open}>
+      <Label open={open}>{defaultValue}</Label>
+      <OptionList open={open}>
         {options.map(option => (
           <Option key={option[0]} value={option[0]}>
             {option[1]}
@@ -51,28 +49,25 @@ function Select({ id, width, defaultValue, options, propsRef }: ISelectProps) {
 
 export default Select;
 
-const SelectContainer = styled.div<{ width: string }>`
+const SelectContainer = styled.div<{ width: string; open: boolean }>`
   display: inline-block;
   position: relative;
   width: ${({ width }) => width};
   height: 50px;
   cursor: pointer;
   margin-bottom: 20px;
-  background: url('./images/AiFillCaretDown.svg') calc(100% - 7px) center
-    no-repeat;
   background-size: 20px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
-  ul {
-    height: 0px;
-  }
-  .active {
-    height: 150px;
-  }
+  background: ${({ open }) =>
+    open
+      ? `url('./images/AiFillCaretDown.svg') calc(100% - 7px) center
+        no-repeat`
+      : '#fff'};
 `;
 
-const Label = styled.button`
+const Label = styled.button<{ open: boolean }>`
+  display: ${({ open }) => (open ? 'flex' : 'block')};
   border: 1px solid ${({ theme }) => theme.color.grey_05};
-  display: flex;
   width: inherit;
   height: inherit;
   padding: 14px;
@@ -83,9 +78,10 @@ const Label = styled.button`
   cursor: pointer;
 `;
 
-const OptionList = styled.ul`
+const OptionList = styled.ul<{ open: boolean }>`
   position: absolute;
   width: inherit;
+  height: ${({ open }) => (open ? '150px' : '0px')};
   left: 0;
   top: 49.5px;
   overflow: scroll;
