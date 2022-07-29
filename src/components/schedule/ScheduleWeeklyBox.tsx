@@ -2,10 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 import ScheduleTimeBox from '@components/schedule/ScheduleTimeBox';
+import PageBox from '@components/common/PageBox';
 import { dayOfWeek, week } from '@constants/day';
 import { ISortedSchedule } from '@src/types/schedule';
-import PageBox from '../common/PageBox';
-import Modal from '../common/Modal';
 
 interface IScheduleWeeklyBoxProps {
   data: ISortedSchedule;
@@ -40,7 +39,12 @@ function ScheduleWeeklyBox({ data, modalRef }: IScheduleWeeklyBoxProps) {
 
 export default ScheduleWeeklyBox;
 
-const ScheduleWeeklyBoxContainer = styled.div``;
+const ScheduleWeeklyBoxContainer = styled.div`
+  display: block;
+  @media ${({ theme }) => theme.deviceSize.mobile} {
+    display: none;
+  }
+`;
 
 const Wrap = styled.div`
   position: relative;

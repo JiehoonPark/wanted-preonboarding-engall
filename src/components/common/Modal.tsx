@@ -1,6 +1,7 @@
-import { useDeleteMutation } from '@src/hooks/useQuries';
 import React from 'react';
 import styled from 'styled-components';
+
+import { useDeleteMutation } from '@hooks/useQuries';
 
 interface IModal {
   modalRef: React.RefObject<HTMLDivElement>;
@@ -43,6 +44,9 @@ const Background = styled.div`
   top: 0;
   background: rgba(128, 128, 128, 0.7);
   z-index: 150;
+  &.active {
+    display: block;
+  }
 `;
 
 const ModalContainer = styled.div`

@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 import ScheduleTimeBox from '@components/schedule/ScheduleTimeBox';
+import PageBox from '@components/common/PageBox';
 import { dayOfWeek, week } from '@constants/day';
 import { ISortedSchedule } from '@src/types/schedule';
-import PageBox from '@components/common/PageBox';
 
 interface IScheduleDayBoxProps {
   data: ISortedSchedule;
@@ -12,9 +12,10 @@ interface IScheduleDayBoxProps {
 }
 
 function ScheduleDayBox({ data, modalRef }: IScheduleDayBoxProps) {
+  const hasScheduleDay = week.filter(day => data[day].length !== 0);
   return (
     <ScheduleDayBoxContainer className="day">
-      {week.map(day => (
+      {hasScheduleDay.map(day => (
         <PageBox key={day}>
           <DayBox>
             <DayTitle>{dayOfWeek[day]}</DayTitle>
@@ -37,7 +38,12 @@ function ScheduleDayBox({ data, modalRef }: IScheduleDayBoxProps) {
 
 export default ScheduleDayBox;
 
-const ScheduleDayBoxContainer = styled.div``;
+const ScheduleDayBoxContainer = styled.div`
+  display: none;
+  @media ${({ theme }) => theme.deviceSize.mobile} {
+    display: block;
+  }
+`;
 
 const DayBox = styled.div`
   position: relative;
