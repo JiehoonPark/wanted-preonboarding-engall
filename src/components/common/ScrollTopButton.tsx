@@ -3,6 +3,8 @@ import { useRef } from 'react';
 import { BsFillArrowUpCircleFill } from 'react-icons/bs';
 import styled from 'styled-components';
 
+import scrollTop from '@utils/scrollTop';
+
 interface IScrollTopButton {
   position: number;
 }
@@ -21,16 +23,8 @@ function ScrollTopButton({ position }: IScrollTopButton) {
     }
   };
 
-  const scrollTop = () => {
-    window.scroll({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-
   useEffect(() => {
     window.addEventListener('scroll', toggleVisible);
-    return window.removeEventListener('scroll', toggleVisible);
   }, []);
 
   return (
@@ -44,4 +38,5 @@ export default ScrollTopButton;
 
 const ScrollTopButtonWrap = styled.div`
   display: none;
+  cursor: pointer;
 `;
