@@ -1,25 +1,13 @@
-import { BASE_ON_DATE } from './../constants/time';
+import { format } from 'date-fns';
+import { BASE_ON_DATE } from '@constants/time';
 
 const reverseGetTime = (time: string) => {
   const [year, month, day] = BASE_ON_DATE;
   const [hour, minute] = time.split(':').map(Number);
 
-  const start = new Date(year, month, day, hour, minute).toLocaleString(
-    'en-us',
-    {
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: true,
-    },
-  );
-  const end = new Date(year, month, day, hour, minute + 40).toLocaleString(
-    'en-us',
-    {
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: true,
-    },
-  );
+  const start = format(new Date(year, month, day, hour, minute), 'h:mm aa');
+  const end = format(new Date(year, month, day, hour, minute + 40), 'h:mm aa');
+
   return { start, end };
 };
 
