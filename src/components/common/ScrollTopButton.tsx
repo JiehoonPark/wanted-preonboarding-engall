@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useRef } from 'react';
 import { BsFillArrowUpCircleFill } from 'react-icons/bs';
 import styled from 'styled-components';
@@ -28,7 +28,10 @@ function ScrollTopButton({ position }: IScrollTopButton) {
     });
   };
 
-  window.addEventListener('scroll', toggleVisible);
+  useEffect(() => {
+    window.addEventListener('scroll', toggleVisible);
+    return window.removeEventListener('scroll', toggleVisible);
+  }, []);
 
   return (
     <ScrollTopButtonWrap onClick={scrollTop} ref={divRef}>
