@@ -1,25 +1,46 @@
-import React, { RefObject } from 'react';
+import React from 'react';
+import { useRef } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
 interface ISelectProps {
+  id: string;
   options: string[];
-  propsRef: RefObject<HTMLButtonElement>;
+  propsRef: React.MutableRefObject<{ [key: string]: string }>;
   width: string;
   defaultValue: string;
 }
 
-function Select({ options, propsRef, width, defaultValue }: ISelectProps) {
+function Select({ id, options, propsRef, width, defaultValue }: ISelectProps) {
+  const ulRef = useRef<HTMLUListElement>(null);
+
   const handleClick = e => {
+    e.stopPropagation();
+    e.preventDefault();
     e.currentTarget.childNodes[1].classList.toggle('active');
     if (e.target.nodeName === 'LI') {
       e.currentTarget.childNodes[0].innerHTML = e.target.innerHTML;
       e.currentTarget.childNodes[1].scrollTop = 0;
+      propsRef.current[id] = e.target.innerHTML;
     }
   };
+
+  useEffect(() => {
+    propsRef.current[id] = defaultValue;
+
+    document.addEventListener('click', e => {
+      if (ulRef.current) ulRef.current.classList.remove('active');
+    });
+
+    return document.removeEventListener('click', e => {
+      if (ulRef.current) ulRef.current.classList.remove('active');
+    });
+  }, []);
+
   return (
     <SelectContainer onClick={handleClick} width={width}>
-      <Label ref={propsRef}>{defaultValue}</Label>
-      <OptionList>
+      <Label>{defaultValue}</Label>
+      <OptionList ref={ulRef}>
         {options.map(option => (
           <Option key={option} value={option}>
             {option}
@@ -68,7 +89,7 @@ const OptionList = styled.ul`
   position: absolute;
   width: inherit;
   left: 0;
-  top: 49px;
+  top: 49.5px;
   overflow: scroll;
   transition: 0.3s ease-in;
   border: 1px solid ${({ theme }) => theme.color.grey_05};
