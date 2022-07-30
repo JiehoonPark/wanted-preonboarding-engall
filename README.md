@@ -18,7 +18,7 @@ $ yarn install
 # run json-server
 $ yarn server
 
-$ run
+# run
 $ yarn start
 ```
 
