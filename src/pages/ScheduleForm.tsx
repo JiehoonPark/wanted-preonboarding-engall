@@ -8,9 +8,9 @@ import Title from '@components/common/Title';
 import StartTime from '@components/form/StartTime';
 import WeekCheckBox from '@components/form/WeekCheckBox';
 import checkEmpty from '@utils/checkEmpty';
-import checkDuplication from '@utils/checkDuplication';
 import { getTime } from '@utils/getTime';
 import { usePostMutation } from '@hooks/useQuries';
+import { getFilterSchedules } from '@api/schedules';
 
 function ScheduleForm() {
   const selectRef = useRef<{ [key: string]: number }>({});
@@ -28,8 +28,8 @@ function ScheduleForm() {
     ];
     try {
       checkEmpty(select, radio, checkbox);
-      await checkDuplication(select, radio, checkbox);
-      const { start } = getTime(select, radio);
+      const { start, end } = getTime(select, radio);
+      await getFilterSchedules(start, end, checkbox);
       const data = checkbox.map(day => {
         return { day, time: start };
       });

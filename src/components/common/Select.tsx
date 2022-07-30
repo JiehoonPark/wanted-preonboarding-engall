@@ -24,13 +24,13 @@ function Select({ id, width, defaultValue, options, propsRef }: ISelectProps) {
   };
 
   const handlefocusOut = () => {
+    console.log('hi');
     setOpen(false);
   };
 
   useEffect(() => {
     propsRef.current[id] = 0;
     document.addEventListener('click', handlefocusOut);
-    return document.removeEventListener('click', handlefocusOut);
   }, []);
 
   return (

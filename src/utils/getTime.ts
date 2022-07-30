@@ -5,10 +5,10 @@ export const getTime = (time: { [key: string]: number }, AMPM: string) => {
   const [year, month, day] = BASE_ON_DATE;
   const { hour, minute } = time;
 
-  if (AMPM === 'pm') time.hour += 12;
+  const hours = AMPM === 'pm' ? hour + 12 : hour;
 
-  const start = format(new Date(year, month, day, hour, minute), 'HH:mm');
-  const end = format(new Date(year, month, day, hour, minute + 40), 'HH:mm');
+  const start = format(new Date(year, month, day, hours, minute), 'HH:mm');
+  const end = format(new Date(year, month, day, hours, minute + 40), 'HH:mm');
 
   return { start, end };
 };
