@@ -24,7 +24,6 @@ function Select({ id, width, defaultValue, options, propsRef }: ISelectProps) {
   };
 
   const handlefocusOut = () => {
-    console.log('hi');
     setOpen(false);
   };
 
