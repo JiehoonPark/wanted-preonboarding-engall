@@ -11,7 +11,7 @@ server.use(jsonServer.bodyParser);
 
 server.use(
   jsonServer.rewriter({
-    '/api/*': '/$1',
+    '/api/*': '/',
   }),
 );
 
