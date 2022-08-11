@@ -15,7 +15,7 @@ server.use(
   }),
 );
 
-server.use(router);
+server.use('/api', router);
 server.listen(port, () => {
   console.log('JSON Server is running');
 });
