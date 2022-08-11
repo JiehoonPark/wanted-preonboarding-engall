@@ -9,6 +9,12 @@ server.use(middlewares);
 
 server.use(jsonServer.bodyParser);
 
+server.use(
+  jsonServer.rewriter({
+    '/api/*': '/$1',
+  }),
+);
+
 server.use(router);
 server.listen(port, () => {
   console.log('JSON Server is running');
