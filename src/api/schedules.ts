@@ -2,7 +2,7 @@ import { dayOfWeek } from '@constants/day';
 import { ISchedule } from '@src/types/schedule';
 import axios from 'axios';
 
-export const BASE_URL = 'https://wanted-4group-engall.herokuapp.com/api';
+export const BASE_URL = 'https://wanted-engall-server.herokuapp.com';
 
 export const getSchedules = async () => {
   const response = await axios.get(`${BASE_URL}/schedules`);
